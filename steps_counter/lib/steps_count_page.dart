@@ -68,14 +68,25 @@ class _StepsCountPageState extends State<StepsCountPage> {
     );
   }
 
+  @override
+  void dispose() {
+    stopListening();
+    super.dispose();
+  }
+
   void startListening() {
     pedometer = Pedometer();
     _streamSubscription = pedometer.pedometerStream.listen(
       getTodaySteps,
-      onError: _onError, 
-      onDone: _onDone, 
-      cancelError: true);
+      onDone: _onDone(),
+      onError: _onError(),
+      cancelOnError: true
+    );
   }
+
+  void _onDone() => print('These are the steps you took today');
+
+  void _onError() => print('There\'s an error countind your steps today');
 
   Future<int> getTodaySteps(int value) async {
     print(value);
@@ -107,15 +118,5 @@ class _StepsCountPageState extends State<StepsCountPage> {
 
   void stopListening() {
     _streamSubscription.cancel();
-  }
-
-  void _onDone() => print('These are the steps you took today');
-
-  void _onError() => print('There\'s an error countind your steps today');
-
-  @override
-  void dispose() {
-    stopListening();
-    super.dispose();
   }
 }
