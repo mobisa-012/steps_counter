@@ -34,7 +34,10 @@ dependencies:
     sdk: flutter
   hive: ^2.2.3
   hive_flutter: ^1.1.0
+  intl: ^0.17.0
+  jiffy: ^5.0.0
   pedometer: ^3.0.0
+  step_progress_indicator: ^1.0.2
 
 dev_dependencies:
   flutter_lints: ^2.0.0
