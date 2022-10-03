@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:steps_counter/homepage.dart';
 
-void main() {
+void main() async {
+  //initializes hive
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  await Hive.openBox<int>('steps');
   runApp(const MyApp());
 }
 
@@ -20,4 +27,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
