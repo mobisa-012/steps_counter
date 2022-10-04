@@ -1,5 +1,6 @@
-import 'dart:async';
+// ignore_for_file: avoid_print
 
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:jiffy/jiffy.dart';
@@ -12,13 +13,14 @@ class StepsCountPage extends StatefulWidget {
   State<StepsCountPage> createState() => _StepsCountPageState();
 }
 
+// ignore: duplicate_ignore
 class _StepsCountPageState extends State<StepsCountPage> {
   //initializes the pedometer plugin,
   //which has a stream where we can get anumber of steps since the phone was booted last
   // dispose the subscription once done
 
   late Pedometer pedometer;
-  late StreamSubscription<int> _streamSubscription;
+  late StreamSubscription<int> _subscription;
   Box<int> stepsBox = Hive.box('steps');
   late int todaySteps;
 
@@ -76,13 +78,14 @@ class _StepsCountPageState extends State<StepsCountPage> {
 
   void startListening() {
     pedometer = Pedometer();
-    _streamSubscription = pedometer.pedometerStream.listen(
+    _subscription = pedometer.pedometerStream.listen(
       getTodaySteps,
       onDone: _onDone(),
       onError: _onError(),
       cancelOnError: true
     );
   }
+
 
   void _onDone() => print('These are the steps you took today');
 
@@ -117,6 +120,6 @@ class _StepsCountPageState extends State<StepsCountPage> {
   }
 
   void stopListening() {
-    _streamSubscription.cancel();
+    _subscription.cancel();
   }
 }
